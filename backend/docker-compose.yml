@@ -17,7 +17,7 @@ services:
 
   db:
     image: mongo
-    hostname: test_mongodb
+    hostname: mongodb
     environment:
       - MONGO_INITDB_DATABASE=citi_finbros_db
     ports:
