@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build: .
+    command: python -u app.py
+    ports:
+      - "80:80"
+    volumes:
+      - .:/app
+    links:
+      - db
+    environment:
+      PYTHONUNBUFFERED: 1
+    depends_on:
+      - db
+
+  db:
+    image: mongo
+    hostname: test_mongodb
+    environment:
+      - MONGO_INITDB_DATABASE=citi_finbros_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-db.js:/docker-entrypoint-initdb.d/init-db.js:ro
