@@ -14,6 +14,7 @@ from pdf2image.exceptions import (
     PDFPageCountError,
     PDFSyntaxError
 )
+import openai
 
 
 load_dotenv()
@@ -28,6 +29,22 @@ def get_db():
     
     db = client["citi_finbros_db"]
     return db
+
+def get_completion(prompt, model="gpt-3.5-turbo"):
+
+    messages = [{"role": "user", "content": prompt}]
+
+    response = openai.ChatCompletion.create(
+
+    model=model,
+
+    messages=messages,
+
+    temperature=0,
+
+    )
+
+    return response.choices[0].message["content"]
 
 @app.route('/')
 def home():
@@ -80,6 +97,20 @@ def upload_file():
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+@app.route("/coref", methods=["POST"])
+def coref():
+    openai.api_key = os.getenv("OPENAI_APIKEY")
+    db = get_db()
+    data = json.loads(request.data)
+    query = data['query']
+    training = "Use coreference resolution in NLP to resolve this text, making sure every pronoun explicitly states the subject: "
+    prompt = training + query
+    response = get_completion(prompt)
+    return jsonify({"message": response})
+    
+
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)
