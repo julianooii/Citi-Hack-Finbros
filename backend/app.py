@@ -41,6 +41,8 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
     messages=messages,
 
     temperature=0,
+    
+    max_tokens=150,
 
     )
 
@@ -108,7 +110,17 @@ def coref():
     prompt = training + query
     response = get_completion(prompt)
     return jsonify({"message": response})
-    
+
+@app.route("/rdf", methods=["POST"])
+def rdf():
+    openai.api_key = os.getenv("OPENAI_APIKEY")
+    db = get_db()
+    data = json.loads(request.data)
+    query = data['query']
+    training = "Organise this text to produce a RDF triple and output it in a python dictionary format without any text formatting: "
+    prompt = training + query
+    response = get_completion(prompt)
+    return jsonify({"message": response})
 
     
 
