@@ -33,36 +33,5 @@ def processString():
         })
 
 
-@app.route("/updateNodes", methods=["POST"])
-def updateNodes():
-    data = json.loads(request.data)
-    
-    DictNodes = data["data"][0] # "ORG" : ["Apple", "Tesla"]
-    for node in DictNodes:
-        records, summary, keys = driver.execute_query("""
-            MATCH (t:Topic {name: $name})
-            """, name=node,
-            database_="neo4j",
-        )
-        currentNodes = records.data()
-        print(currentNodes) ### to remove
-
-        # If base node doesnt exist, create a new Topic node
-        
-        if len(currentNodes) == 0:
-            summary = driver.execute_query(
-                "MERGE (:Person {name: $name})",  
-                name="Alice",  
-                database_="neo4j",  
-            ).summary
-        
-        # Else if node exists, create a Text node and connect it to existing Topic node
-        else:
-
-
-
-
-    return
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=90, debug=True)
