@@ -1,0 +1,38 @@
+.logo {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal .modal-field {
+    display: block;
+    margin: 30px;
+    width: 400px;
+    height: 30px;
+    border-radius: 30px;
+    padding: 10px;
+    border-color: grey;
+  }
+  
+  .button {
+    margin: 30px;
+    width: 400px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: blue;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+  }/*# sourceMappingURL=SignIn.css.map */
