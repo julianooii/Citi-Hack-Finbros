@@ -17,9 +17,9 @@ function NavBar() {
                 <li>
                   <NavLink to="/" className="navLink" style={({ isActive }) => { return { color: isActive ? 'white' : '', background: isActive ? '#456bf5' : "white", borderRadius: isActive ? "12px" : '', textDecoration: "none" } }}>Home</NavLink>
                 </li>
-                {/* <li>
+                <li>
                   <NavLink to="/chat" className="navLink" style={({ isActive }) => { return { color: isActive ? 'white' : '', background: isActive ? '#456bf5' : "white", borderRadius: isActive ? "12px" : '', textDecoration: "none" } }}>Chat</NavLink>
-                </li> */}
+                </li>
                 <li>
                   <NavLink to="/profile" className="navLink" style={({ isActive }) => { return { color: isActive ? 'white' : '', background: isActive ? '#456bf5' : "white", borderRadius: isActive ? "12px" : '', textDecoration: "none" } }}>Profile</NavLink>
                 </li>
