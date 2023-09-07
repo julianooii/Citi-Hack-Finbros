@@ -10,6 +10,10 @@ Pillow==8.3.1
 pdf2image==1.14.0
 neo4j==5.12.0
 openai==0.28.0
+<<<<<<< HEAD
 google-api-python-client==2.98.0
 google-auth-httplib2==0.1.0
 google-auth-oauthlib==1.0.0
+=======
+msal==1.23.0
+>>>>>>> eb3cff33fb7716e9f81ab7b1372979eb69e05fab
