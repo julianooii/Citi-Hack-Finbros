@@ -205,7 +205,7 @@ def gdrive():
     results = service.files().list(q=f"'%s' in parents" % string,
                                    pageSize=20, fields="nextPageToken, files(id, name)",).execute()
     items = results.get('files', [])
-
+    total_results = []
     for id_url in items:
         file_id = id_url['id']
         results = service.files().get(fileId=file_id).execute()
@@ -223,8 +223,12 @@ def gdrive():
         path = "tempResources/" + name
         with open(path, 'wb') as f:
             shutil.copyfileobj(fh, f)
+            temp_result = requests.post("http://localhost:80/upload", files={'file': open(path, 'rb')})
+            print("temp_result", temp_result)
+            query_result = requests.post("http://localhost:80/query", json={"query": temp_result.json()['result']})
+            total_results.append(query_result.json()['message'])
     
-    return jsonify({"message": "Files Successfully Extracted"})
+    return jsonify({"message": total_results})
 
 
 @app.route("/oneDriveAuth", methods=['POST']) # {"message" : "Documents"}
