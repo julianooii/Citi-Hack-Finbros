@@ -50,7 +50,7 @@
     align-items: center;
   }
 .NavbarContainer {
-  height: 100px;
+  height: 75px;
   width: 100%;
   padding: 0.5rem 0rem;
   background-image: linear-gradient(to right, rgb(56, 78, 204), rgb(127, 207, 229));
@@ -90,15 +90,16 @@
   padding: 0;
   list-style-type: none;
   margin-right: 20px; /* Adjust this to create space between menu items */
+  font-size: 1.0em;
 }
 
 .NavbarLinks {
-  color: white;
+  color: grey;
   text-decoration: none;
   cursor: pointer;
 }
 
 .NavbarLinks.active {
   font-weight: bold;
-  /* Add any other active styles here */
+  color: white;
 }
