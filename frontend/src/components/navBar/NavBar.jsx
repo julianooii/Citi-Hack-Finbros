@@ -10,17 +10,17 @@ function NavBar() {
     const navigate = useNavigate();
     return (
         <div className="NavbarContainer">
-          <div className="NavbarLogo" to="/">
+          <NavLink className="NavbarLogo" to="/">
             <img className="NavbarLogoImg" src={logo}>
             </img>
-          </div>
+          </NavLink>
           
           <div className="NavbarMenu">
             <div className="NavbarItem">
-              <div className="NavbarLinks" to="/">Home</div>
+              <NavLink className="NavbarLinks" to="/">Home</NavLink>
             </div>
             <div className="NavbarItem">
-              <div className="NavbarLinks" to="/chat">Chat</div>
+              <NavLink className="NavbarLinks" to="/chat">Chat</NavLink>
             </div>
           </div>
           <main>
