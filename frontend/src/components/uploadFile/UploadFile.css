@@ -1,10 +1,10 @@
-.fileupload {
+.uploadfile {
     margin-top: 70px;
     width: 100%;
     padding: 50px 0;
 }
 
-.file-button {
+.uploadfile-button {
     background-color: #456bf5; /* Set the background color */
     color: white; /* Set the text color */
     padding: 10px 20px; /* Add some padding */
@@ -14,6 +14,6 @@
     padding: 7px;
   }
   
-  .file-button:hover {
+  .uploadfile-button:hover {
     background-color: #093efd; /* Darker color on hover */
   }
