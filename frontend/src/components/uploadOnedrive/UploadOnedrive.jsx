@@ -15,7 +15,7 @@ const UploadOneDrive = () => {
         try {
             // Step 1: Send POST request to oneDriveAuth
             const authResponse = await axios.post('http://127.0.0.1:80/oneDriveAuth', {
-                directory: directoryInput
+                message: directoryInput
             });
 
             const code = authResponse.data.message[0];
