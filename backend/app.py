@@ -295,7 +295,7 @@ def MicrosoftAuth2():
         with open(os.path.join(f"{os.getcwd()}/backend/tempResources", fileDicts[fileId]), "wb") as f:
             f.write(response_file_content.content)
 
-    return jsonify({"message" : "Files Successfully Extracted"})
+    return jsonify({"message" : "Files Successfully Uploaded"})
 
 
 # @app.route("/oneDrive", methods=['POST']) # {"message" : "Documents"}
