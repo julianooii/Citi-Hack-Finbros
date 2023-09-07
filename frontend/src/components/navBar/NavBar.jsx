@@ -17,10 +17,10 @@ function NavBar() {
           
           <div className="NavbarMenu">
             <div className="NavbarItem">
-              <div className="NavbarLinks" to="/">Home</div>
+              <NavLink className="NavbarLinks" to="/">Home</NavLink>
             </div>
             <div className="NavbarItem">
-              <div className="NavbarLinks" to="/chat">Chat</div>
+              <NavLink className="NavbarLinks" to="/chat">Chat</NavLink>
             </div>
           </div>
           <main>
