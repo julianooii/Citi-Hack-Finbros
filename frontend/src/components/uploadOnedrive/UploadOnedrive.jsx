@@ -14,15 +14,16 @@ const UploadOneDrive = () => {
     const handleUpload = async () => {
         try {
             // Step 1: Send POST request to oneDriveAuth
-            const authResponse = await axios.post('http://127.0.0.1:90/oneDriveAuth', {
+            const authResponse = await axios.post('http://127.0.0.1:80/oneDriveAuth', {
                 directory: directoryInput
             });
 
             const code = authResponse.data.message[0];
+            console.log("Received authenticator code:", code);
             setAuthenticatorCode(code);
 
             // Step 2: Send POST request to oneDriveFileExtract
-            const extractResponse = await axios.post('http://127.0.0.1:90/oneDriveFileExtract');
+            const extractResponse = await axios.post('http://127.0.0.1:80/oneDriveFileExtract');
 
             const uploadMessage = extractResponse.data.message;
             setUploadMessage(uploadMessage);
@@ -43,7 +44,7 @@ const UploadOneDrive = () => {
                 onChange={handleInputChange}
             />
             <button className="file-button" onClick={handleUpload}>Submit</button>
-            <div>{authenticatorCode && <div>Authenticator Code: {authenticatorCode}</div>}</div>
+            <div>{authenticatorCode !== null && <div>Authenticator Code: {authenticatorCode}</div>}</div>
             <div>{uploadMessage && <div>{uploadMessage}</div>}</div>
         </div>
     );
