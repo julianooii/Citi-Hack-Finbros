@@ -227,17 +227,13 @@ def gdrive():
     return jsonify({"message": "Files Successfully Extracted"})
 
 
-@app.route("/oneDriveAuth", methods=['POST'])
+@app.route("/oneDriveAuth", methods=['POST']) # {"message" : "Documents"}
 def MicrosoftAuth():
-    tenent_id = "55dd5550-5d6b-43fd-99c3-caa837fa27dc"
     APPLICATION_ID = "27f17a4b-5e7e-477e-866f-6eff3e3aa049"
-    CLIENT_SECRET = "Bx~8Q~lpYniXgL6vuD56dxLR4UDRAxZ5ZGLpMcua"
     base_url = "https://graph.microsoft.com/v1.0/"
-    
-    authority_url = 'https://login.microsoft.com/consumers/'
+
     scopes = ['Files.Read', 'Files.Read.All']
 
-    fileDicts= {}
     data = json.loads(request.data)
     folder_dir = data['message']
 
@@ -248,6 +244,27 @@ def MicrosoftAuth():
     print(flow['message'])
     print(flow['message'].split()[-3])
 
+    return jsonify({"message": [flow['message'].split()[-3], flow, folder_dir]}) #format is {"message": [code, flow, folder]}
+
+
+
+@app.route("/oneDriveFileExtract", methods=['POST']) #format is {"message": [code, flow, folder]}
+def MicrosoftAuth2():
+    APPLICATION_ID = "27f17a4b-5e7e-477e-866f-6eff3e3aa049"
+    base_url = "https://graph.microsoft.com/v1.0/"
+    
+    scopes = ['Files.Read', 'Files.Read.All']
+
+    fileDicts= {}
+    data = json.loads(request.data)
+    folder_dir = data['message'][2]
+    flow = data['message'][1]
+
+    app = msal.PublicClientApplication(
+        APPLICATION_ID,
+    )
+    
+    fileDicts= {}
     webbrowser.open(flow['verification_uri'])
     result = app.acquire_token_by_device_flow(flow)
     access_token_id = result["access_token"]
@@ -275,6 +292,16 @@ def MicrosoftAuth():
             f.write(response_file_content.content)
 
     return jsonify({"message" : "Files Successfully Extracted"})
+
+
+# @app.route("/oneDrive", methods=['POST']) # {"message" : "Documents"}
+# def downloadAll():
+#     data = json.loads(request.data)
+#     print(data)
+#     auth = requests.post("http://127.0.0.1:90/oneDriveAuth", json=data)
+#     extract_response = requests.post("http://127.0.0.1:90/oneDriveFileExtract", json=auth.json())
+
+#     return extract_response.json() #jsonify({"message":[auth1]}) 
 
 
 
