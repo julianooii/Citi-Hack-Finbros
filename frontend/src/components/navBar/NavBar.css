@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .navigation {
     height: 60px;
     width: 100%;
@@ -49,3 +50,58 @@
     justify-content: center;
     align-items: center;
   }
+=======
+.NavbarContainer {
+  height: 100px;
+  width: 100%;
+  padding: 0.5rem 0rem;
+  background-image: linear-gradient(to right, rgb(56, 78, 204), rgb(127, 207, 229));
+  color: black;
+  box-shadow: 0 2px 2px 2px rgba(9, 9, 9, 0.23);
+}
+
+.NavbarLogo {
+  float: left; /* Add this */
+  cursor: pointer;
+  font-size: 2rem;
+  margin-left: 24px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.NavbarLogoImg {
+  width: 80px;
+  object-fit: contain;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.NavbarMenu {
+  float: left; /* Add this */
+  margin-left: 30px; /* Add this to create space for the logo */
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+}
+
+.NavbarItem {
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  margin-right: 20px; /* Adjust this to create space between menu items */
+}
+
+.NavbarLinks {
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.NavbarLinks.active {
+  font-weight: bold;
+  /* Add any other active styles here */
+}
+>>>>>>> 5d5901d31866b8996273a0726e17b3709582c98a
