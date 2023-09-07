@@ -23,7 +23,7 @@ const NavBar = () => {
               <NavLink className="NavbarLinks" to="/chat">Chat</NavLink>
             </div>
             <div className="NavbarItem">
-              <NavLink className="NavbarLinks" to="/upload">Upload</NavLink>
+              <NavLink className="NavbarLinks" to="/upload">Update</NavLink>
             </div>
           </div>
           <main>
