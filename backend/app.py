@@ -177,6 +177,7 @@ def gdrive():
     Prints the names and ids of the first 10 files the user has access to.
     """
     creds = None
+    post_data = json.loads(request.data)
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
@@ -195,7 +196,13 @@ def gdrive():
             token.write(creds.to_json())
     # full link --> https://drive.google.com/drive/folders/1DdXx-CfRzcSCYAjCPQVV29wfxkW_yD1g?usp=drive_link
     service = build('drive', 'v3', credentials=creds)
-    results = service.files().list(q=f"'1DdXx-CfRzcSCYAjCPQVV29wfxkW_yD1g' in parents",
+
+
+    
+    link = post_data['query']
+    string = link.split('/')[-1]
+    string = string.split('?')[0]
+    results = service.files().list(q=f"'%s' in parents" % string,
                                    pageSize=20, fields="nextPageToken, files(id, name)",).execute()
     items = results.get('files', [])
 
@@ -203,9 +210,9 @@ def gdrive():
         file_id = id_url['id']
         results = service.files().get(fileId=file_id).execute()
         name = results['name']
-        request = service.files().get_media(fileId=file_id)
+        service_request = service.files().get_media(fileId=file_id)
         fh = io.BytesIO()
-        downloader = MediaIoBaseDownload(fh, request)
+        downloader = MediaIoBaseDownload(fh, service_request)
         done = False
         while done is False:
             status, done = downloader.next_chunk()
@@ -213,9 +220,11 @@ def gdrive():
 
         fh.seek(0)
         # Write the received data to the file
-        path = "/Users/alden/Documents/GitHub/Citi-Hack-Finbros/downloaded_files/" + name
+        path = "tempResources/" + name
         with open(path, 'wb') as f:
             shutil.copyfileobj(fh, f)
+    
+    return jsonify({"message": "Files Successfully Extracted"})
 
 
 @app.route("/oneDriveAuth", methods=['POST'])
