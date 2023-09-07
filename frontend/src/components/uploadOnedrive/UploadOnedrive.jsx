@@ -28,6 +28,8 @@ const UploadOneDrive = () => {
 
     return (
         <div className="uploadOnedrive">
+            <b>OneDrive</b>
+            <br></br>
             <input
                 className="file-input"
                 type="text"
@@ -35,7 +37,7 @@ const UploadOneDrive = () => {
                 value={directoryInput}
                 onChange={handleInputChange}
             />
-            <button className="file-button" onClick={handleUpload}>Upload</button>
+            <button className="file-button" onClick={handleUpload}>Upload to OneDrive</button>
             <div>{authenticatorCode && <div>Authenticator Code: {authenticatorCode}</div>}</div>
         </div>
     );
