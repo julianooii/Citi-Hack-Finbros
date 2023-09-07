@@ -37,7 +37,7 @@ const UploadOneDrive = () => {
                 value={directoryInput}
                 onChange={handleInputChange}
             />
-            <button className="file-button" onClick={handleUpload}>Upload to OneDrive</button>
+            <button className="file-button" onClick={handleUpload}>Submit</button>
             <div>{authenticatorCode && <div>Authenticator Code: {authenticatorCode}</div>}</div>
         </div>
     );
