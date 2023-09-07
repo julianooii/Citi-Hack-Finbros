@@ -5,7 +5,7 @@ import {LinkContainer} from 'react-router-bootstrap'
 import logo from "../../image/logo.png"
 
 
-function NavBar() {
+const NavBar = () => {
     const [active, setActive] = useState('navBar');
     const navigate = useNavigate();
     return (
