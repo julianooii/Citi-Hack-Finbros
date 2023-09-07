@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import Chat from './pages/ChatPage'
 import SignIn from './components/auth/SignIn';
 import RequestAcc from './components/auth/RequestAcc'
+import UploadPage from './pages/UploadPage';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<NavBar/>}>
           <Route index element={<HomePage />} />
           <Route path ="/chat" element ={<Chat/>}/>
+          <Route path ="/upload" element ={<UploadPage/>}/>
         </Route>
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/requestacc" element={<RequestAcc />} />

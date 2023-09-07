@@ -22,6 +22,9 @@ function NavBar() {
             <div className="NavbarItem">
               <NavLink className="NavbarLinks" to="/chat">Chat</NavLink>
             </div>
+            <div className="NavbarItem">
+              <NavLink className="NavbarLinks" to="/upload">Upload</NavLink>
+            </div>
           </div>
           <main>
             <Outlet/>
