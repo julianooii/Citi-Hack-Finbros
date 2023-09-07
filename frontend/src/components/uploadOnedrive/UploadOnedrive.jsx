@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import "./UploadOnedrive.css"
 
 const UploadOneDrive = () => {
     const [directoryInput, setDirectoryInput] = useState('');
     const [authenticatorCode, setAuthenticatorCode] = useState(null);
+    const [uploadMessage, setUploadMessage] = useState('');
 
     const handleInputChange = (event) => {
         setDirectoryInput(event.target.value);
@@ -10,24 +13,28 @@ const UploadOneDrive = () => {
 
     const handleUpload = async () => {
         try {
-            const response = await uploadDirectory(directoryInput);
-            setAuthenticatorCode(response.data.authenticatorCode);
+            // Step 1: Send POST request to oneDriveAuth
+            const authResponse = await axios.post('http://127.0.0.1:90/oneDriveAuth', {
+                directory: directoryInput
+            });
+
+            const code = authResponse.data.message[0];
+            setAuthenticatorCode(code);
+
+            // Step 2: Send POST request to oneDriveFileExtract
+            const extractResponse = await axios.post('http://127.0.0.1:90/oneDriveFileExtract');
+
+            const uploadMessage = extractResponse.data.message;
+            setUploadMessage(uploadMessage);
         } catch (error) {
             console.error('Error uploading directory: ', error);
         }
     };
 
-    const uploadDirectory = async (directory) => {
-        // Simulated upload function
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({ data: { authenticatorCode: '123456' } });
-            }, 2000); // Simulating a 2-second delay for the upload process
-        });
-    };
-
     return (
         <div className="uploadOnedrive">
+            <h2><b>OneDrive</b></h2>
+            <br></br>
             <input
                 className="file-input"
                 type="text"
@@ -35,8 +42,9 @@ const UploadOneDrive = () => {
                 value={directoryInput}
                 onChange={handleInputChange}
             />
-            <button className="file-button" onClick={handleUpload}>Upload</button>
+            <button className="file-button" onClick={handleUpload}>Submit</button>
             <div>{authenticatorCode && <div>Authenticator Code: {authenticatorCode}</div>}</div>
+            <div>{uploadMessage && <div>{uploadMessage}</div>}</div>
         </div>
     );
 };
