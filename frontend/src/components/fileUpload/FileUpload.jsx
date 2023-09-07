@@ -8,6 +8,7 @@ function FileUpload() {
   
     const handleFileUpload = async () => {
       try {
+        setResult({result: "Uploading..."})
         const formData = new FormData();
         formData.append('file', file);
   
