@@ -195,8 +195,7 @@ def gdrive():
             token.write(creds.to_json())
     # full link --> https://drive.google.com/drive/folders/1DdXx-CfRzcSCYAjCPQVV29wfxkW_yD1g?usp=drive_link
     service = build('drive', 'v3', credentials=creds)
-    string = '1DdXx-CfRzcSCYAjCPQVV29wfxkW_yD1g'
-    results = service.files().list(q=f"1DdXx-CfRzcSCYAjCPQVV29wfxkW_yD1g in parents",
+    results = service.files().list(q=f"'1DdXx-CfRzcSCYAjCPQVV29wfxkW_yD1g' in parents",
                                    pageSize=20, fields="nextPageToken, files(id, name)",).execute()
     items = results.get('files', [])
 
@@ -214,7 +213,7 @@ def gdrive():
 
         fh.seek(0)
         # Write the received data to the file
-        path = "tempResources/" + name
+        path = "/Users/alden/Documents/GitHub/Citi-Hack-Finbros/downloaded_files/" + name
         with open(path, 'wb') as f:
             shutil.copyfileobj(fh, f)
 
@@ -271,4 +270,4 @@ def MicrosoftAuth():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=90, debug=True)
+    app.run(host='0.0.0.0', port=80, debug=True)
