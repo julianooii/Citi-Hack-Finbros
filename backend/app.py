@@ -331,13 +331,33 @@ def MicrosoftAuth2():
         print(fileDetails["id"])
         fileDicts[fileDetails["id"]] = fileDetails["name"]
 
+    total_results = []
+
+
     # Import all files into tempResources folder using their file name
     for fileId in fileDicts:
         response_file_content = requests.get(base_url + f"/me/drive/items/{fileId}/content", 
             headers=headers
         )
-        with open(os.path.join(f"{os.getcwd()}/backend/tempResources", fileDicts[fileId]), "wb") as f:
+        with open(os.path.join(f"tempResources", fileDicts[fileId]), "wb") as f:
             f.write(response_file_content.content)
+            temp_result = requests.post("http://localhost:80/upload", files={'file': open(os.path.join(f"tempResources", fileDicts[fileId]), 'rb')})
+            temp_result = temp_result.json()['result'].replace('\n', " ")
+            query_result = requests.post("http://localhost:80/query", json={"query": temp_result})
+            total_results.append(query_result.json()['message'])
+
+    for result_number in total_results:
+        for result in result_number:
+            subject = result[0]
+            verb = result[1]
+            object = result[2]
+            cypher_query = f"""
+                MERGE (s:Node {{name: "{subject}"}})
+                MERGE (o:Node {{name: "{object}"}})
+                MERGE (s)-[:{verb}]->(o)
+            """
+            run_query(URI, AUTH[0], AUTH[1], cypher_query)
+
 
     return jsonify({"message" : "Files Successfully Uploaded"})
 
