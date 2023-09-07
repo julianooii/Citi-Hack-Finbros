@@ -1,4 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import axios from "axios";
 import "./Chat.css";
 import {
   MainContainer,
@@ -9,53 +11,68 @@ import {
   TypingIndicator,
 } from "@chatscope/chat-ui-kit-react";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import Sender from "../sender/Sender";
+import Bot from "../bot/Bot";
 
 const Chat = () => {
-  return (
-    // <div style={{ position: "relative" }}>
-    //   <ChatContainer>
-    //     {/* <div class = "cs-chat-container my-chat-container"> */}
-    //     <div as="ConversationHeader">New Chat</div>
-    //     {/* <MessageInput/> */}
-    //     {/* <button>Custom button</button> */}
-    //     {/* </div> */}
-    //   </ChatContainer>
-    //   <div style={{ position: "relative", height: "500px" }}>
-    //     <MainContainer>
-    //       <ChatContainer>
-    //         <MessageList>
-    //           <Message
-    //             model={{
-    //               message: "Hello",
-    //               sentTime: "just now",
-    //               sender: "Joe",
-    //             }}
-    //           />
-    //         </MessageList>
-    //         <MessageInput placeholder="Type message here" />
-    //       </ChatContainer>
-    //     </MainContainer>
-    //   </div>
-    // </div>
+  const [queries, setQueries] = useState([]);
+  const [typing, setTyping] = useState(false);
 
+  const addUserMessage = async (message) => {
+    setQueries([...queries, message]);
+    setTyping(true);
+    const response = await axios.post("http://localhost:80/cypher", {
+      query: message,
+    });
+    const reply = JSON.stringify(`(${response.data.role}) ` + response.data.message);
+    setQueries([...queries, message, reply]);
+    setTyping(false);
+  };
+  return (
     <div className="chatContainer">
       <ChatContainer>
-        <div className="newChat" as="ConversationHeader">New Chat</div>
+        <div className="newChat" as="ConversationHeader">
+          Chat with Oracle
+        </div>
       </ChatContainer>
 
       <div style={{ position: "relative", height: "500px" }}>
-      <MainContainer>
+        <MainContainer>
           <ChatContainer>
             <MessageList>
+
               <Message
                 model={{
-                  message: "Hello",
-                  sentTime: "just now",
-                  sender: "Joe",
+                  message:
+                    "Hello! I am your AI assistant for this session. How can I help you today?",
                 }}
               />
+              {queries.map((query) => (
+                query[1] == "(" ? (
+                  <Message
+                    model={{
+                      message: query.slice(12),
+                    }}
+                  />
+                ) : (
+                  <Sender message={query} />
+                )
+              ))}
             </MessageList>
-            <MessageInput placeholder="Type message here" />
+            {typing ? (
+              <MessageInput
+                placeholder="Waiting for response..."
+                sendDisabled={typing}
+                disabled
+              />
+            ) : (
+              <MessageInput
+                placeholder="Type message here"
+                sendDisabled={typing}
+                sendOnReturnDisabled={typing}
+                onSend={(e) => addUserMessage(e)}
+              />
+            )}
           </ChatContainer>
         </MainContainer>
       </div>

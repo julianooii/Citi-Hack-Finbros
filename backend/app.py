@@ -396,7 +396,7 @@ def cypher():
 
     final_results = get_completion(final_prompt)
     
-    return jsonify({"message": final_results})
+    return jsonify({"message": final_results, "role": "assistant"})
 
 
 # user type what they want to find --> gpt convert to cypher query --> run cypher query to get result --> narrative
