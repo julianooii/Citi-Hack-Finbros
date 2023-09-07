@@ -285,14 +285,14 @@ def MicrosoftAuth2():
     return jsonify({"message" : "Files Successfully Extracted"})
 
 
-@app.route("/oneDrive", methods=['POST']) # {"message" : "Documents"}
-def downloadAll():
-    data = json.loads(request.data)
-    print(data)
-    auth = requests.post("http://127.0.0.1:90/oneDriveAuth", json=data)
-    extract_response = requests.post("http://127.0.0.1:90/oneDriveFileExtract", json=auth.json())
+# @app.route("/oneDrive", methods=['POST']) # {"message" : "Documents"}
+# def downloadAll():
+#     data = json.loads(request.data)
+#     print(data)
+#     auth = requests.post("http://127.0.0.1:90/oneDriveAuth", json=data)
+#     extract_response = requests.post("http://127.0.0.1:90/oneDriveFileExtract", json=auth.json())
 
-    return extract_response.json() #jsonify({"message":[auth1]}) 
+#     return extract_response.json() #jsonify({"message":[auth1]}) 
 
 
 
