@@ -6,15 +6,15 @@ import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
  const Chat = () => {
 
     return(
-        <div style={{ position: "relative", height: "500px" }}>
-            {/* <ChatContainer> */}
-{/* 
-            <div class = "cs-chat-container my-chat-container">
-                <div as = "ConversationHeader">My custom conversation header</div>
-                <MessageInput/>
-                <button>Custom button</button>
-                </div> */}
-            {/* </ChatContainer> */}
+        <div style={{ position: "relative"}}>
+            <ChatContainer>
+
+            {/* <div class = "cs-chat-container my-chat-container"> */}
+                <div as = "ConversationHeader">New Chat</div>
+                {/* <MessageInput/> */}
+                {/* <button>Custom button</button> */}
+                {/* </div> */}
+            </ChatContainer>
   {/* <MainContainer>
     <ChatContainer>
       <MessageList>
