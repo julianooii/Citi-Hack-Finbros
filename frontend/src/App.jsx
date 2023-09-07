@@ -8,7 +8,6 @@ import HomePage from './pages/HomePage';
 import Chat from './pages/ChatPage'
 import SignIn from './components/auth/SignIn';
 import RequestAcc from './components/auth/RequestAcc'
-import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
 
@@ -17,9 +16,8 @@ function App() {
       <Routes>
         <Route path="/" element={<NavBar/>}>
           <Route index element={<HomePage />} />
-          <Route path ="/chat" component ={<Chat/>}/>
+          <Route path ="/chat" element ={<Chat/>}/>
         </Route>
-        
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/requestacc" element={<RequestAcc />} />
       </Routes>
