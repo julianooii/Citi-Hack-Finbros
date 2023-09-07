@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './FileUpload.css';
 
 function FileUpload() {
     const [file, setFile] = useState(null);
@@ -26,9 +27,9 @@ function FileUpload() {
     };
   
     return (
-      <div>
+      <div className='fileupload'>
         <input type="file" onChange={(e) => setFile(e.target.files[0])} />
-        <button onClick={handleFileUpload}>Upload and OCR</button>
+        <button className="file-button" onClick={handleFileUpload}>Upload and OCR</button>
         <div>{result.result}</div>
       </div>
     );

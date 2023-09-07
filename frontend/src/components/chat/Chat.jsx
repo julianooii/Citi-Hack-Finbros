@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Chat.css"
  import { MainContainer, ChatContainer, MessageList, Message, MessageInput, TypingIndicator } from '@chatscope/chat-ui-kit-react';
  import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
-const Chat = () => {
+
+ const Chat = () => {
 
     return(
         <div style={{ position: "relative", height: "500px" }}>
