@@ -7,7 +7,7 @@ const HomePage = () => {
     return(
         <div>
         <Home />
-        <FileUpload/>
+        {/* <FileUpload/> */}
         </div>
     );
 };
