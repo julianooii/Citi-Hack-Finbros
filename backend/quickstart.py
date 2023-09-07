@@ -1,5 +1,6 @@
 from __future__ import print_function
-
+#install this package
+#pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
 import os.path
 
 from google.auth.transport.requests import Request
@@ -31,12 +32,12 @@ def main():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'backend/credentials.json', SCOPES)
+                'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
-
+    #full link --> https://drive.google.com/drive/folders/1DdXx-CfRzcSCYAjCPQVV29wfxkW_yD1g?usp=drive_link
     service = build('drive', 'v3', credentials=creds)
     results = service.files().list(q=f"'1DdXx-CfRzcSCYAjCPQVV29wfxkW_yD1g' in parents",
             pageSize=20, fields="nextPageToken, files(id, name)",).execute()
