@@ -23,9 +23,11 @@ const UploadOneDrive = () => {
             setAuthenticatorCode(code);
 
             // Step 2: Send POST request to oneDriveFileExtract
-            const extractResponse = await axios.post('http://127.0.0.1:80/oneDriveFileExtract', {
-                message: authResponse
+            const extractResponse = await axios.post('http://localhost:80/oneDriveFileExtract', {
+                message: authResponse.data.message
             });
+
+            console.log("authresponse here!!!!!", authResponse)
 
             const uploadMessage = extractResponse.data.message;
             setUploadMessage(uploadMessage);
