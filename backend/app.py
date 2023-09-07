@@ -103,22 +103,18 @@ def upload_file():
         return jsonify({'error': str(e)}), 500
     
 @app.route("/coref", methods=["POST"])
-def coref():
+def coref(query):
     openai.api_key = os.getenv("OPENAI_APIKEY")
     db = get_db()
-    data = json.loads(request.data)
-    query = data['query']
     training = "Use coreference resolution in NLP to resolve this text, making sure every pronoun explicitly states the subject: "
     prompt = training + query
     response = get_completion(prompt)
-    return jsonify({"message": response})
+    return response
 
 @app.route("/rdf", methods=["POST"])
-def rdf():
+def rdf(query):
     # openai.api_key = os.getenv("OPENAI_APIKEY")
     db = get_db()
-    data = json.loads(request.data)
-    query = data['query']
     # training = "Organise this text to produce a RDF triple and output it in a python dictionary format without any text formatting: "
     # prompt = training + query
     # response = get_completion(prompt)
@@ -144,10 +140,20 @@ def rdf():
             triples.append((subject, verb, obj))
 
     # Print the extracted triples
-    for triple in triples:
-        print(triple)
+    # for triple in triples:
+    #     print(triple)
 
-    return jsonify({"message": triples})
+    return triples
+
+@app.route("/query", methods=["POST"])
+def query():
+    db = get_db()
+    data = json.loads(request.data)
+    query = data['query']
+    coref_text = coref(query)
+    rdf_text = rdf(coref_text)
+    return jsonify({"message": rdf_text})
+
 
     
 
