@@ -2,7 +2,7 @@ from __future__ import print_function
 import json
 from pymongo import MongoClient
 from flask import Flask, jsonify, request
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 import os 
 from dotenv import load_dotenv
 import pytesseract
@@ -33,6 +33,9 @@ from msal import PublicClientApplication
 import requests
 from neo4j import GraphDatabase
 
+app = Flask(__name__)
+CORS(app)
+
 URI = "neo4j+s://5fb1b60c.databases.neo4j.io"
 AUTH = ("neo4j", "n38clRL6k2kfNq00-4i3Z91b1by3JstK4sm6NNP95Dk")
 
@@ -42,8 +45,7 @@ with GraphDatabase.driver(URI, auth=AUTH) as driver:
 
 load_dotenv()
 
-app = Flask(__name__)
-CORS(app)
+
 nlp = spacy.load("en_core_web_sm")
 
 
@@ -198,6 +200,7 @@ def query():
     return jsonify({"message": rdf_text})
 
 @app.route("/gdrive", methods=["POST"])
+@cross_origin()
 def gdrive():
     SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
           'https://www.googleapis.com/auth/drive', 'https://www.googleapis.com/auth/drive.readonly']
@@ -253,7 +256,6 @@ def gdrive():
             shutil.copyfileobj(fh, f)
             temp_result = requests.post("http://localhost:80/upload", files={'file': open(path, 'rb')})
             temp_result = temp_result.json()['result'].replace('\n', " ")
-            print(temp_result)
             query_result = requests.post("http://localhost:80/query", json={"query": temp_result})
             total_results.append(query_result.json()['message'])
     

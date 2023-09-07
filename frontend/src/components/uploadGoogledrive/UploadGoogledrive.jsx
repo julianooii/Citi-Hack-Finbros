@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import "./UploadGoogledrive.css";
+import axios from 'axios';
 
 const UploadGoogleDrive = () => {
     const [directoryInput, setDirectoryInput] = useState('');
@@ -12,7 +13,6 @@ const UploadGoogleDrive = () => {
     const handleUpload = async () => {
         try {
             const response = await uploadDirectory(directoryInput);
-            setAuthenticatorCode(response.data.authenticatorCode);
         } catch (error) {
             console.error('Error uploading directory: ', error);
         }
@@ -20,11 +20,10 @@ const UploadGoogleDrive = () => {
 
     const uploadDirectory = async (directory) => {
         // Simulated upload function
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({ data: { authenticatorCode: '123456' } });
-            }, 2000); // Simulating a 2-second delay for the upload process
+        const res = await axios.post('http://localhost:80/gdrive', {
+            query: directory,
         });
+        console.log(res);
     };
 
     return (
@@ -39,7 +38,6 @@ const UploadGoogleDrive = () => {
                 onChange={handleInputChange}
             />
             <button className="file-button" onClick={handleUpload}>Submit</button>
-            <div>{authenticatorCode && <div>Authenticator Code: {authenticatorCode}</div>}</div>
         </div>
     );
 };
