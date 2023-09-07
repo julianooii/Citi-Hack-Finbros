@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import "./UploadGoogledrive.css";
 
 const UploadGoogleDrive = () => {
     const [directoryInput, setDirectoryInput] = useState('');
@@ -28,7 +29,7 @@ const UploadGoogleDrive = () => {
 
     return (
         <div className="uploadGoogleDrive">
-            <b>Google Drive</b>
+            <h2><b>Google Drive</b></h2>
             <br></br>
             <input
                 className="file-input"

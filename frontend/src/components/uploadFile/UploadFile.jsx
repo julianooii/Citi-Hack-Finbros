@@ -29,6 +29,7 @@ function UploadFile() {
   
     return (
       <div className='uploadfile'>
+          <h2><b>File Upload</b></h2>
         <input type="file" onChange={(e) => setFile(e.target.files[0])} />
         <button className="uploadfile-button" onClick={handleFileUpload}>Upload</button>
         <div>{result.result}</div>

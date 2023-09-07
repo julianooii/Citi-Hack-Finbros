@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import "./UploadOnedrive.css"
 
 const UploadOneDrive = () => {
     const [directoryInput, setDirectoryInput] = useState('');
@@ -32,7 +33,7 @@ const UploadOneDrive = () => {
 
     return (
         <div className="uploadOnedrive">
-            <b>OneDrive</b>
+            <h2><b>OneDrive</b></h2>
             <br></br>
             <input
                 className="file-input"

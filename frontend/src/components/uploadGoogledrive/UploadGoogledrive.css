@@ -1,8 +1,8 @@
 .uploadGoogleDrive {
-    margin-top: 70px;
+    /* margin-top: 70px; */
     width: 100%;
-    padding: 50px 0;
-    padding-top: 100px;
+    /* padding: 50px 0; */
+    /* padding-top: 100px; */
      
 }
 
@@ -14,10 +14,11 @@
     cursor: pointer; /* Change cursor on hover */
     border-radius: 5px;
     padding: 7px;
+    margin-left: 70px;
 }
 
 .uploadGoogleDrive .file-input {
-    border: none;  
+    width:30%;   
 }
 
 .uploadGoogleDrive .file-button:hover {
