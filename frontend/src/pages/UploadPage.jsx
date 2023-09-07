@@ -6,8 +6,8 @@ import UploadFile from "../components/uploadFile/UploadFile";
 const UploadPage = () => {
     return(
         <div>
-            <UploadOneDrive />
             <UploadFile/>
+            <UploadOneDrive />
         </div>
     );
 };
